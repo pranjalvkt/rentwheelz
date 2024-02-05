@@ -26,7 +26,7 @@ export const registerUser = createAsyncThunk('/register', async (formData) => {
 
 export const bookCar = createAsyncThunk('/bookCar', async (formData) => {
     try {
-        const url = 'http://localhost:3000/reserve';
+        const url = 'http://localhost:3000/bookings/reserve';
         const response = await axios.post(url, formData);
         return response.data;
     }
@@ -37,7 +37,7 @@ export const bookCar = createAsyncThunk('/bookCar', async (formData) => {
 
 export const cancelBooking = createAsyncThunk('cancel', async (bookingId) => {
     try {
-        const url = `http://localhost:3000/cancel/${bookingId}`;
+        const url = `http://localhost:3000/bookings/cancel/${bookingId}`;
         const response = await axios.put(url);
         return response.data;
     }
@@ -48,9 +48,9 @@ export const cancelBooking = createAsyncThunk('cancel', async (bookingId) => {
 
 export const getBookings = createAsyncThunk('bookings', async (currentUser) => {
     try {
-        const url = `http://localhost:3000/my-bookings`;
+        const url = `http://localhost:3000/bookings/my-bookings`;
         const response = await axios.get(url);
-        const filterData = response.data.filter(booking => booking.userEmail === currentUser)
+        const filterData = response.data.bookings.filter(booking => booking.userEmail === currentUser)
 
         return filterData;
     }
